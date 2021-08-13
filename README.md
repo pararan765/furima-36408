@@ -61,5 +61,4 @@
 
 ### Association
 
-- has_one_active_hash :prefecture_id
 - belongs_to :pay

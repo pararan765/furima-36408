@@ -18,18 +18,17 @@
 - has_many :pays
 
 ## items テーブル
-| Column     | Type       | Options                        |
-| ---------- | ---------- | ------------------------------ |
-| name       | string     | null: false                    |
-| concept    | text       | null: false                    |
-| category   | integer    | null: false                    |
-| state      | integer    | null: false                    |
-| delivery   | integer     | null: false                    |
-| local      | integer    | null: false                    |
-| category   | integer    | null: false                    |
-| days       | integer    | null: false                    |
-| price      | integer    | null: false                    |
-| user       | references | null: false, foreign_key: true |
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| name            | string     | null: false                    |
+| concept         | text       | null: false                    |
+| category_id     | integer    | null: false                    |
+| state_id        | integer    | null: false                    |
+| delivery_id     | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
+| shipping_day_id | integer    | null: false                    |
+| price           | integer    | null: false                    |
+| user            | references | null: false, foreign_key: true |
 
 
 ### Association 
@@ -53,13 +52,14 @@
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | postal_code      | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
 | city             | string     | null: false                    |
 | address          | string     | null: false                    |
 | building         | string     |                                |
 | telephone_number | string     | null: false                    |
-| user             | references | null: false, foreign_key: true |
 | pay              | references | null: false, foreign_key: true |
 
 ### Association
 
+- has_one_active_hash :prefecture_id
 - belongs_to :pay

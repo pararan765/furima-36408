@@ -1,24 +1,71 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
+| Column          | Type     | Options     |
+| --------------- | -------- | ----------- |
+| nickname        | string   | null: false |
+| password        | string   | null: false |
+| email           | string   | null: false |
+| last_name       | string   | null: false |
+| first_name      | string   | null: false |
+| last_name_kana  | string   | null: false |
+| first_name_kana | string   | null: false |
+| birthday        | datetime | null: false |
 
-Things you may want to cover:
+### Association
 
-* Ruby version
+- has_many :items
+- has_many :pays
+- has_many :posts
 
-* System dependencies
+## items テーブル
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| name       | text       | null: false                    |
+| concept    | text       | null: false                    |
+| category   | text       | null: false                    |
+| state      | string     | null: false                    |
+| delivery   | string     | null: false                    |
+| local      | string     | null: false                    |
+| category   | string     | null: false                    |
+| days       | string     | null: false                    |
+| price      | integer    | null: false                    |
+| user       | references | null: false, foreign_key: true |
 
-* Configuration
 
-* Database creation
+### Association 
 
-* Database initialization
+- belongs_to :user
+- has_one    :pay
 
-* How to run the test suite
+## pays テーブル
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| card_number   | integer    | null: false                    |
+| card_month    | integer    | null: false,                   |
+| card_year     | integer    | null: false                    |
+| card_security | integer    | null: false                    |
+| user          | references | null: false, foreign_key: true |
+| item          | references | null: false, foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
 
-* Deployment instructions
+- belongs_to :user
+- has_one    :post
 
-* ...
+## posts テーブル
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | integer    | null: false                    |
+| Prefecture       | string     | null: false                    |
+| city             | string     | null: false                    |
+| address          | string     | null: false                    |
+| building         | string     |                                |
+| telephone_number | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
+| pay              | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :pay

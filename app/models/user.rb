@@ -16,4 +16,6 @@ class User < ApplicationRecord
    validates :birthday
    validates :password,:password_confirmation,length:{minimum:6},format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/}
   end
+
+  has_many :items
 end

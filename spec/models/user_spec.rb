@@ -120,5 +120,17 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana カタカナを使用してください")
     end
+
+    it 'パスワードが空では登録ができない' do
+      @user.password = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password can't be blank")
+    end
+
+    it 'nicknameが空では登録できない' do
+      @user.nickname = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Nickname can't be blank")
+    end
   end
  end 

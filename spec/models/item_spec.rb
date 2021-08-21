@@ -8,19 +8,16 @@ RSpec.describe Item, type: :model do
 
     context '商品出品ができる場合' do
       it '必要な情報を入力したら出品できます' do
-        @item.category_id = 2
-        @item.state_id = 2
-        @item.delivery_id = 2
-        @item.prefecture_id = 2
-        @item.shipping_id = 2
         expect(@item).to be_valid
       end
 
     end
 
     context '商品出品ができない場合' do
-      it '' do
-
+      it 'userが紐づいていないと登録できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
 
       it '画像が空の場合登録できない' do
@@ -66,11 +63,6 @@ RSpec.describe Item, type: :model do
       end      
 
       it '価格が空白の場合、登録できない' do
-        @item.category_id = 2
-        @item.state_id = 2
-        @item.delivery_id = 2
-        @item.prefecture_id = 2
-        @item.shipping_id = 2
         @item.price = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
@@ -96,6 +88,18 @@ RSpec.describe Item, type: :model do
         @item.price = "matsue"
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+
+      it '価格が半角英数混合では登録できない' do
+        @item.price = "test666"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+
+      it  '価格が999999円を超えると登録できない' do
+       @item.price = 10000000
+       @item.valid?
+       expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
     end
   end

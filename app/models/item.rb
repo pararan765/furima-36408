@@ -14,6 +14,7 @@ class Item < ApplicationRecord
   end
 
   belongs_to :user
+  has_one    :pay
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions

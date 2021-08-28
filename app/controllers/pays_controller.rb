@@ -1,7 +1,14 @@
 class PaysController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :only]
+
   def index
     @item = Item.find(params[:item_id])
     @pay_post = PayPost.new
+    if current_user.id == @item.user_id 
+      redirect_to root_path
+    elsif @item.pay.present? 
+      redirect_to root_path
+    end
   end
 
   def create

@@ -83,6 +83,24 @@ RSpec.describe User, type: :model do
         @pay_post.valid?
         expect(@pay_post.errors.full_messages).to include("Prefecture must be other than 1")
       end
+
+      it 'user_idが空白では購入できない' do
+        @pay_post.user_id = ''
+        @pay_post.valid?
+        expect(@pay_post.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空白では購入できない' do
+        @pay_post.item_id = ''
+        @pay_post.valid?
+        expect(@pay_post.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it '電話番号が空白では購入できない' do
+        @pay_post.telephone_number = ''
+        @pay_post.valid?
+        expect(@pay_post.errors.full_messages).to include("Telephone number can't be blank")
+      end
     end
   end
 end

@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe '商品購入' do
     before do
-      @pay_post = FactoryBot.build(:pay_post)
+      user = FactoryBot.create(:user)
+      item = FactoryBot.create(:item)
+      @pay_post = FactoryBot.build(:pay_post, user_id: user_id, item_id: item_id)
     end
 
     context '商品を購入できる' do

@@ -1,5 +1,5 @@
 class PaysController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :only]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :item_data, only: [:index, :create]
 
   def index
